@@ -17,7 +17,12 @@ client.on('message', message => {
         let rooms = args.shift();
         let roles = args.shift();
         createRoom(message, rooms, roles);
-        moveUsers(message,rooms, roles);
+    }
+    else if (command === 'test'){
+      testing(message);
+    }
+    else if (command === 'distribute'){
+      distributeUsers(message);
     }
     else if (command === 'anime'){
         linkAnime(command);
@@ -26,7 +31,45 @@ client.on('message', message => {
       closeBreakout(message);
     }
 })
+testing = (message) =>{
+  //get channels in a guild, filter to voice channels
+  // let chan = message.guild.channels.cache;
+  // console.log(Object.getOwnPropertyNames(chan));
+  // console.log(chan._array);
+  // console.log(chan._keyArray);
+  // let filtered = chan.filter(e => e instanceof Discord.VoiceChannel);
+  // console.log(filtered);
+  
 
+  //how to get members in guild, get roles from members. cant figure out how to get connections to show up
+  // probably need to use fetch to get active connections. fetch returns a promise though
+  // let memArray = [];
+  // message.guild.members.cache.forEach(mem => memArray.push(mem));
+  // console.log(Object.getOwnPropertyNames(memArray[0]));
+  // console.log(memArray[0].user.username);
+  // console.log(memArray[0]._roles);
+  // console.log(memArray[0].client);
+  // console.log(memArray[0].client.voice);
+  
+
+  //getRole()
+  //console.log(message.guild.roles.cache);
+  // message.guild.roles.cache.forEach(e => console.log(e.name));
+  // let map =  message.guild.roles.cache.filter(e=>e.name === 'testrole');
+  // ///console.log(map);
+  // let arr = [];
+  // map.forEach(e=>arr.push(e));
+  // //console.log(arr);
+  // let role = arr[0];
+  // console.log(role);
+  // console.log(`role name: ${role.name}, \n role id: ${role.id}`);
+  let role = getRole(message.guild, 'testrole');
+
+
+  
+
+  
+}
 createRoom = (message,rooms,roles) => {
     let server = message.guild;
     
@@ -44,7 +87,9 @@ createRoom = (message,rooms,roles) => {
 moveUsers = (message, rooms, roles) =>{
     message.guild.channels.cache.filter(e => e.type == 'voice' && e.nam)
 }
-
+distributeUsers=(message)=> {
+  message.author;
+}
 closeBreakout = (message) => {
   console.log('trying to delete');
   let toDelete = message.guild.channels.cache;
@@ -53,7 +98,25 @@ closeBreakout = (message) => {
   // toDelete.forEach(e => e.delete());
   //message.guild.channels.filter(e => e.toString().includes('breakout')).forEach(element => element.delete());
 }
+// returns role 
+function getRole(guild, roleName){
 
+  let map =  guild.roles.cache.filter(e=>e.name === roleName);
+  ///console.log(map);
+  let arr = [];
+  map.forEach(e=>arr.push(e));
+  //console.log(arr);
+  let role = arr[0];
+  return role;
+}
+//returns type GuildMember[]
+function getMembersWithRole(guild,role){
+
+  console.log(role.id+'');
+  guild.members.cache.forEach(guildMem => console.log(guildMem._roles));
+  let memArr = guild.members.cache.filter(guildMem => guildMem._roles.includes(role+'')).map(x => x);
+  return memArr;
+}
 // experiencing ssl errors, note: ask for some help here
 linkAnime = (command) => {
     //https://danbooru.donmai.us/profile.json?login=your_username&api_key=your_api_key

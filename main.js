@@ -63,8 +63,11 @@ testing = (message) =>{
   // let role = arr[0];
   // console.log(role);
   // console.log(`role name: ${role.name}, \n role id: ${role.id}`);
-  let role = getRole(message.guild, 'testrole');
-
+  let guild = message.guild;
+  let role = getRole(guild, 'testrole');
+  let memArr = getMembersWithRole(guild,role);
+  let activeMem = guild.members.fetch().then(mems => mems);
+  console.log(activeMem);
 
   
 

@@ -17,28 +17,42 @@ client.on('message', message => {
         let rooms = args.shift();
         let roles = args.shift();
         createRoom(message, rooms, roles);
-        moveUsers(message,roles);
+        moveUsers(message,rooms, roles);
     }
     else if (command === 'anime'){
         linkAnime(command);
+    }
+    else if (command === 'close'){
+      closeBreakout(message);
     }
 })
 
 createRoom = (message,rooms,roles) => {
     let server = message.guild;
-    let roomNum = 0;
-    for(let i = 0; i<rooms; i++){
-        let name = `${roles} breakout ${roomNum}`;
+    
+    for(let i = 1; i<=rooms; i++){
+        let name = `${roles} breakout ${i}`;
+
         server.channels.create(name,{
-                                        type:'voice'
+                                        type:'voice',
+                                        parent:message.channel.parent
+
                                     })
         // .then(console.log('created room '+name).catch(console.error));
     }
 }
-moveUsers = (message, roles) =>{
-    
+moveUsers = (message, rooms, roles) =>{
+    message.guild.channels.cache.filter(e => e.type == 'voice' && e.nam)
 }
 
+closeBreakout = (message) => {
+  console.log('trying to delete');
+  let toDelete = message.guild.channels.cache;
+  toDelete.filter(e=> e.name.includes('breakout')).forEach(e=> e.delete());
+  // console.log(toDelete);
+  // toDelete.forEach(e => e.delete());
+  //message.guild.channels.filter(e => e.toString().includes('breakout')).forEach(element => element.delete());
+}
 
 // experiencing ssl errors, note: ask for some help here
 linkAnime = (command) => {

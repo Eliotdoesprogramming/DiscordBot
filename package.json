@@ -1,24 +1,25 @@
 {
-  "name": "discordbot",
-  "version": "1.0.0",
-  "description": "personal discord bot",
-  "main": "main.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Eliotdoesprogramming/DiscordBot.git"
-  },
-  "author": "Eliot Zubkoff",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Eliotdoesprogramming/DiscordBot/issues"
-  },
-  "homepage": "https://github.com/Eliotdoesprogramming/DiscordBot#readme",
-  "dependencies": {
-    "discord.js": "^12.5.1",
-    "http-client": "^4.3.1",
-    "jquery": "^3.5.1"
-  }
+    "name": "discordbot",
+    "version": "1.0.0",
+    "description": "personal discord bot",
+    "main": "main.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Eliotdoesprogramming/DiscordBot.git"
+    },
+    "author": "Eliot Zubkoff",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Eliotdoesprogramming/DiscordBot/issues"
+    },
+    "homepage": "https://github.com/Eliotdoesprogramming/DiscordBot#readme",
+    "dependencies": {
+        "discord.js": "^12.5.1",
+        "http-client": "^4.3.1",
+        "jquery": "^3.5.1"
+    }
+
 }

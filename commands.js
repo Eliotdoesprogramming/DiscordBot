@@ -19,7 +19,7 @@ var testing = (message) => {
     // let activeMem = guild.members.fetch().then(mems => mems);
     // console.log(activeMem);
 
-    createRoom(message, 1, 'lol');
+
 
 
 

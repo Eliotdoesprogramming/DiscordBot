@@ -37,7 +37,7 @@ exports.createRoom = (message, rooms, roles) => {
     }
 };
 exports.moveUsers = (message, rooms, roles) => {
-    message.guild.channels.cache.filter(e => e.type == 'voice' && e.nam)
+    console.log('unsupported');
 };
 
 exports.closeBreakout = (message) => {
@@ -66,7 +66,7 @@ exports.linkAnime = (command) => {
         path: `profile.json?login=${user}&api+key=${key}/posts/random.json`,
         hostname: 'danbooru.donmai.us',
         rejectunauthorized: false
-    }
+    };
 
     const req = https.request(options, res => {
         console.log(`statusCode: ${res.statusCode}`);
@@ -75,11 +75,11 @@ exports.linkAnime = (command) => {
             let image = d.file_url;
             message.channel.send(image);
         });
-    })
+    });
 
     req.on('error', error => {
         console.error(error);
-    })
+    });
 
     req.end();
 

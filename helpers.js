@@ -33,4 +33,4 @@ exports.getVoiceChannels = (message) => {
     let filtered = chan.filter(e => e instanceof Discord.VoiceChannel);
     // console.log(filtered);
     return filtered;
-}
+};

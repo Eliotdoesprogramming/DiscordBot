@@ -1,4 +1,5 @@
 //jshint esversion: 6
+const Login = require('./botlogin.json');
 const CommandsModule = require('./commands.js');
 const Discord = require('discord.js');
 const client = new Discord.Client();
@@ -42,4 +43,4 @@ client.on('message', message => {
 
 
 
-client.login('Nzk5ODI1MTMyNDgyNTkyNzkw.YAJNMw.m-GP_DpdQZXaqDL8HxHbgfh6b8Y');
+client.login(Login.token);

@@ -1,6 +1,6 @@
 //jshint esversion: 6
 const HelperModule = require('./helpers.js');
-exports.testing = (message) => {
+var testing = (message) => {
     //getRole()
     //console.log(message.guild.roles.cache);
     // message.guild.roles.cache.forEach(e => console.log(e.name));
@@ -12,17 +12,20 @@ exports.testing = (message) => {
     // let role = arr[0];
     // console.log(role);
     // console.log(`role name: ${role.name}, \n role id: ${role.id}`);
-    let guild = message.guild;
-    let role = HelperModule.getRole(guild, 'testrole');
-    let memArr = HelperModule.getMembersWithRole(guild, role);
-    let activeMem = guild.members.fetch().then(mems => mems);
-    console.log(activeMem);
 
+    // let guild = message.guild;
+    // let role = HelperModule.getRole(guild, 'testrole');
+    // let memArr = HelperModule.getMembersWithRole(guild, role);
+    // let activeMem = guild.members.fetch().then(mems => mems);
+    // console.log(activeMem);
+
+    createRoom(message, 1, 'lol');
 
 
 
 };
-exports.createRoom = (message, rooms, roles) => {
+exports.testing = testing;
+var createRoom = (message, rooms, roles) => {
     let server = message.guild;
 
     for (let i = 1; i <= rooms; i++) {
@@ -36,11 +39,12 @@ exports.createRoom = (message, rooms, roles) => {
         // .then(console.log('created room '+name).catch(console.error));
     }
 };
-exports.moveUsers = (message, rooms, roles) => {
+exports.createRoom = createRoom;
+var moveUsers = (message, rooms, roles) => {
     console.log('unsupported');
 };
-
-exports.closeBreakout = (message) => {
+exports.moveUsers = moveUsers;
+var closeBreakout = (message) => {
     console.log('trying to delete');
     let toDelete = message.guild.channels.cache;
     toDelete.filter(e => e.name.includes('breakout')).forEach(e => e.delete());
@@ -48,6 +52,7 @@ exports.closeBreakout = (message) => {
     // toDelete.forEach(e => e.delete());
     //message.guild.channels.filter(e => e.toString().includes('breakout')).forEach(element => element.delete());
 };
+exports.closeBreakout = closeBreakout;
 // experiencing ssl errors, note: ask for some help here
 exports.linkAnime = (command) => {
     //https://danbooru.donmai.us/profile.json?login=your_username&api_key=your_api_key

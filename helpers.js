@@ -1,7 +1,7 @@
 //jshint esversion: 6
 
 // returns role 
-exports.getRole = (guild, roleName) => {
+var getRole = (guild, roleName) => {
 
     let map = guild.roles.cache.filter(e => e.name === roleName);
     ///console.log(map);
@@ -11,20 +11,23 @@ exports.getRole = (guild, roleName) => {
     let role = arr[0];
     return role;
 };
+exports.getRole = getRole;
 //returns type GuildMember[]
-exports.getMembersWithRole = (guild, role) => {
+var getMembersWithRole = (guild, role) => {
 
     console.log(role.id + '');
     guild.members.cache.forEach(guildMem => console.log(guildMem._roles));
     let memArr = guild.members.cache.filter(guildMem => guildMem._roles.includes(role + '')).map(x => x);
     return memArr;
 };
-exports.distributeUsers = (message) => {
+exports.getMembersWithRole = getMembersWithRole;
+var distributeUsers = (message) => {
     // unsupported
     console.log('unsupported');
 };
+exports.distributeUsers = distributeUsers;
 // returns voice channels
-exports.getVoiceChannels = (message) => {
+var getVoiceChannels = (message) => {
     //get channels in a guild, filter to voice channels
     let chan = message.guild.channels.cache;
     // console.log(Object.getOwnPropertyNames(chan));
@@ -34,3 +37,4 @@ exports.getVoiceChannels = (message) => {
     // console.log(filtered);
     return filtered;
 };
+exports.getVoiceChannels = getVoiceChannels;

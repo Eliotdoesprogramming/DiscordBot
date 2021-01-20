@@ -40,10 +40,10 @@ var createRoom = (message, rooms, roles) => {
     }
 };
 exports.createRoom = createRoom;
-var moveUsers = (message, rooms, roles) => {
+var distributeToBreakout = (message, rooms, roles) => {
     console.log('unsupported');
 };
-exports.moveUsers = moveUsers;
+exports.moveUsers = distributeToBreakout;
 var closeBreakout = (message) => {
     console.log('trying to delete');
     let toDelete = message.guild.channels.cache;

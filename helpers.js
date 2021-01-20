@@ -38,3 +38,11 @@ var getVoiceChannels = (message) => {
     return filtered;
 };
 exports.getVoiceChannels = getVoiceChannels;
+var moveUser = (user, toRoom) => {
+    console.log('unsupported');
+};
+exports.moveUser = moveUser;
+var getConnectedFromArray = (members, room) => {
+    console.log('unsupported');
+};
+exports.getConnectedFromArray = getConnectedFromArray;

@@ -31,13 +31,12 @@ var testing = (message) => {
 
 };
 exports.testing = testing;
-var createRoom = (message, rooms, roles) => {
+var createRoom = (message, name,rooms) => {
     let server = message.guild;
-
+    
     for (let i = 1; i <= rooms; i++) {
-        let name = `${roles} breakout ${i}`;
 
-        server.channels.create(name, {
+        server.channels.create(name+" "+i, {
             type: 'voice',
             parent: message.channel.parent
 
@@ -47,20 +46,17 @@ var createRoom = (message, rooms, roles) => {
 };
 exports.createRoom = createRoom;
 //!dist [role] distributes connected users to breakout rooms in a random ordering
-var distributeToBreakout = (message) => {
+var distributeToBreakout = (message,roletxt) => {
     let msgtext = message.content.slice(1);
-    let args = msgtext.split(' ');
-    args.shift();
-    let arg1 = args.shift();
-    let role = HelperModule.getRole(message.guild, arg1);
+    let role = HelperModule.getRole(message.guild, roletxt);
     let membersWithRole = HelperModule.getMembersWithRole(message.guild, role);
     let connectedMembersWithRole = [];
     membersWithRole.filter(e => e.voice.channel).forEach(e => connectedMembersWithRole.push(e));
-    console.log(connectedMembersWithRole + ' are members with the role');
+    console.log(connectedMembersWithRole.length + ' are members with the role');
 
     let breakoutArr = [];
     HelperModule.getVoiceChannels(message).filter(e => e.name.includes('breakout')).forEach(e => breakoutArr.push(e));
-    console.log(breakoutArr + ' are voice channels named breakout');
+    console.log(breakoutArr.length + ' are voice channels named breakout');
     breakoutArr = shuffle(breakoutArr);
     let j = 0;
     for (let i = 0; i < connectedMembersWithRole.length; j++, i++) {
@@ -134,3 +130,4 @@ let shuffle = (array) => {
 
     return array;
 };
+

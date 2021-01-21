@@ -17,26 +17,41 @@ client.on('message', message => {
     const command = args.shift().toLowerCase();
 
     if (command === 'hi') message.channel.send(`hi <@${message.author.id}>`);
-    else if (command === 'breakout') {
-        let rooms = args.shift();
+    else if (command === 'breakout' || command === 'bk') {
         let roles = args.shift();
-        CommandsModule.createRoom(message, rooms, roles);
+        let rooms = args.shift();
+        if(!( typeof roles ===  'string'|| parseInt(rooms) ))  {
+            message.channel.send('please enter the command !bk [role] [number of rooms]');
+            return;
+        } 
+        let name = `${roles} breakout`;
+
+        CommandsModule.createRoom(message, name,rooms);
+        CommandsModule.distributeToBreakout(message,roles);
+
+
+        
     } else if (command === 'test') {
         CommandsModule.testing(message);
     } else if (command === 'dist') {
         let roles = args.shift();
-        CommandsModule.distributeUsers(message, roles);
+        if(roles)CommandsModule.distributeToBreakout(message, roles);
+        else message.channel.send('no role given, please use !dist [role]');
     } else if (command === 'anime') {
         CommandsModule.linkAnime(command);
     } else if (command === 'close') {
         CommandsModule.closeBreakout(message);
     }
 });
-
-
-
-
-
+//l2usepromisenow
+function sleep(milliseconds) {
+    var start = new Date().getTime();
+    for (var i = 0; i < 1e7; i++) {
+      if ((new Date().getTime() - start) > milliseconds){
+        break;
+      }
+    }
+  }
 
 
 

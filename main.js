@@ -1,6 +1,7 @@
 //jshint esversion: 6
 const Login = require('./botlogin.json');
 const CommandsModule = require('./commands.js');
+const HelperModule = require('./helpers.js');
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const prefix = '!';
@@ -20,22 +21,27 @@ client.on('message', message => {
     else if (command === 'breakout' || command === 'bk') {
         let roles = args.shift();
         let rooms = args.shift();
-        if(!( typeof roles ===  'string'|| parseInt(rooms) ))  {
+        if (!(typeof roles === 'string' || parseInt(rooms))) {
             message.channel.send('please enter the command !bk [role] [number of rooms]');
             return;
-        } 
+        }
+        if (!HelperModule.getRole(message.guild, roles)) {
+            message.channel.send('Please enter a valid role');
+            return;
+        }
+
         let name = `${roles} breakout`;
 
-        CommandsModule.createRoom(message, name,rooms);
-        CommandsModule.distributeToBreakout(message,roles);
+        CommandsModule.createRoom(message, name, rooms);
+        CommandsModule.distributeToBreakout(message, roles);
 
 
-        
+
     } else if (command === 'test') {
         CommandsModule.testing(message);
     } else if (command === 'dist') {
         let roles = args.shift();
-        if(roles)CommandsModule.distributeToBreakout(message, roles);
+        if (roles) CommandsModule.distributeToBreakout(message, roles);
         else message.channel.send('no role given, please use !dist [role]');
     } else if (command === 'anime') {
         CommandsModule.linkAnime(command);
@@ -43,15 +49,7 @@ client.on('message', message => {
         CommandsModule.closeBreakout(message);
     }
 });
-//l2usepromisenow
-function sleep(milliseconds) {
-    var start = new Date().getTime();
-    for (var i = 0; i < 1e7; i++) {
-      if ((new Date().getTime() - start) > milliseconds){
-        break;
-      }
-    }
-  }
+
 
 
 

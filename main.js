@@ -19,6 +19,8 @@ client.on('message', message => {
 
     if (command === 'hi') message.channel.send(`hi <@${message.author.id}>`);
     else if (command === 'breakout' || command === 'bk') {
+        // currently not working, individual command module functions work, but need to 
+        // implement promises due to their async nature
         let roles = args.shift();
         let rooms = args.shift();
         if (!(typeof roles === 'string' || parseInt(rooms))) {

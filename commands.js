@@ -1,5 +1,7 @@
 //jshint esversion: 6
 const HelperModule = require('./helpers.js');
+const Discord = require('discord.js');
+
 var testing = (message) => {
     //getRole()
     //console.log(message.guild.roles.cache);
@@ -13,15 +15,19 @@ var testing = (message) => {
     // console.log(role);
     // console.log(`role name: ${role.name}, \n role id: ${role.id}`);
 
-    // let guild = message.guild;
-    // let role = HelperModule.getRole(guild, 'testrole');
-    // let memArr = HelperModule.getMembersWithRole(guild, role);
-    // let activeMem = guild.members.fetch().then(mems => mems);
-    // console.log(activeMem);
+    // checking if a user is connected to a channel
+    // let role = HelperModule.getRole(message.guild, 'testrole');
+    // let memWithRole = HelperModule.getMembersWithRole(message.guild, role);
+    // // console.log(memWithRole[0].user.username + ' has the role');
+    // // console.log(memWithRole[0].voice.channel);
+    // //console.log(memWithRole[0].user.username + ' is connected to ' + memWithRole[0].voice.channel.name);
 
+    // let breakouts = message.guild.channels.cache.filter(e => e.name.includes('breakout'));
+    // breakouts.forEach(e => console.log(e.name));
+    // let breakoutArr = [];
+    // breakouts.forEach(e => breakoutArr.push(e));
 
-
-
+    //going to get a working distribute and then paste it
 
 };
 exports.testing = testing;
@@ -40,17 +46,35 @@ var createRoom = (message, rooms, roles) => {
     }
 };
 exports.createRoom = createRoom;
-var distributeToBreakout = (message, rooms, roles) => {
-    console.log('unsupported');
+//!dist [role] distributes connected users to breakout rooms in a random ordering
+var distributeToBreakout = (message) => {
+    let msgtext = message.content.slice(1);
+    let args = msgtext.split(' ');
+    args.shift();
+    let arg1 = args.shift();
+    let role = HelperModule.getRole(message.guild, arg1);
+    let membersWithRole = HelperModule.getMembersWithRole(message.guild, role);
+    let connectedMembersWithRole = [];
+    membersWithRole.filter(e => e.voice.channel).forEach(e => connectedMembersWithRole.push(e));
+    console.log(connectedMembersWithRole + ' are members with the role');
+
+    let breakoutArr = [];
+    HelperModule.getVoiceChannels(message).filter(e => e.name.includes('breakout')).forEach(e => breakoutArr.push(e));
+    console.log(breakoutArr + ' are voice channels named breakout');
+    breakoutArr = shuffle(breakoutArr);
+    let j = 0;
+    for (let i = 0; i < connectedMembersWithRole.length; j++, i++) {
+
+        HelperModule.moveMember(connectedMembersWithRole[i], breakoutArr[j]);
+        if (j == breakoutArr.length - 1) j = -1;
+    }
 };
-exports.moveUsers = distributeToBreakout;
+exports.distributeToBreakout = distributeToBreakout;
 var closeBreakout = (message) => {
     console.log('trying to delete');
     let toDelete = message.guild.channels.cache;
     toDelete.filter(e => e.name.includes('breakout')).forEach(e => e.delete());
-    // console.log(toDelete);
-    // toDelete.forEach(e => e.delete());
-    //message.guild.channels.filter(e => e.toString().includes('breakout')).forEach(element => element.delete());
+
 };
 exports.closeBreakout = closeBreakout;
 // experiencing ssl errors, note: ask for some help here
@@ -89,4 +113,24 @@ exports.linkAnime = (command) => {
     req.end();
 
 
+};
+
+let shuffle = (array) => {
+    var currentIndex = array.length,
+        temporaryValue, randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+
+    return array;
 };

@@ -1,6 +1,7 @@
 //jshint esversion: 6
 
 // returns role 
+const Discord = require('discord.js');
 var getRole = (guild, roleName) => {
 
     let map = guild.roles.cache.filter(e => e.name === roleName);
@@ -14,18 +15,26 @@ var getRole = (guild, roleName) => {
 exports.getRole = getRole;
 //returns type GuildMember[]
 var getMembersWithRole = (guild, role) => {
+    let memArr = [];
+    //console.log('-----starting helper method getMembersWithRole-----');
+    //console.log('searching for role id :' + role.id);
+    //guild.members.cache.forEach(guildMem => console.log(guildMem.user.username + ' has the roles: ' + guildMem._roles));
+    memArr = guild.members.cache.filter(guildMem => guildMem._roles.includes(role + ''));
+    //console.log(memArr);
+    //console.log('--------------- end helper ---------------');
 
-    console.log(role.id + '');
-    guild.members.cache.forEach(guildMem => console.log(guildMem._roles));
-    let memArr = guild.members.cache.filter(guildMem => guildMem._roles.includes(role + '')).map(x => x);
     return memArr;
 };
 exports.getMembersWithRole = getMembersWithRole;
-var distributeUsers = (message) => {
+//working
+var moveMember = (member, channel) => {
     // unsupported
-    console.log('unsupported');
+    if (member.voice.channel) {
+        member.voice.setChannel(channel);
+    } else
+        console.log('user not connected to voice');
 };
-exports.distributeUsers = distributeUsers;
+exports.moveMember = moveMember;
 // returns voice channels
 var getVoiceChannels = (message) => {
     //get channels in a guild, filter to voice channels
@@ -38,11 +47,3 @@ var getVoiceChannels = (message) => {
     return filtered;
 };
 exports.getVoiceChannels = getVoiceChannels;
-var moveUser = (user, toRoom) => {
-    console.log('unsupported');
-};
-exports.moveUser = moveUser;
-var getConnectedFromArray = (members, room) => {
-    console.log('unsupported');
-};
-exports.getConnectedFromArray = getConnectedFromArray;

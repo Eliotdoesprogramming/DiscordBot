@@ -9,6 +9,7 @@ client.once('ready', () => {
     console.log('bot is online');
 });
 
+
 client.on('message', message => {
     if (!message.content.startsWith(prefix) || message.author.bot) return;
 
@@ -19,11 +20,12 @@ client.on('message', message => {
     else if (command === 'breakout') {
         let rooms = args.shift();
         let roles = args.shift();
-        createRoom(message, rooms, roles);
+        CommandsModule.createRoom(message, rooms, roles);
     } else if (command === 'test') {
         CommandsModule.testing(message);
-    } else if (command === 'distribute') {
-        CommandsModule.distributeUsers(message);
+    } else if (command === 'dist') {
+        let roles = args.shift();
+        CommandsModule.distributeUsers(message, roles);
     } else if (command === 'anime') {
         CommandsModule.linkAnime(command);
     } else if (command === 'close') {
